@@ -1,4 +1,4 @@
----@alias boiler.config.Picker "snacks"|"vim"|nil support picker types
+---@alias boiler.config.Picker "snacks"|"vim" support picker types
 
 ---@class boiler.Config
 ---@field picker? boiler.config.Picker picker preference

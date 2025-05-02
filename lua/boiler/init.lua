@@ -8,11 +8,7 @@ local picker = require("boiler.picker")
 ---@param filetype? string filter items by filetype + generics
 function M.pick(filetype)
   local items = util.find_templates(M.config.paths)
-  if M.config.picker == "snacks" then
-    picker.snacks(items, filetype)
-  else
-    picker.select(items, filetype)
-  end
+  picker.pick(items, M.config.picker, filetype)
 end
 
 ---Plugin Setup
@@ -23,11 +19,11 @@ function M.setup(opts)
 
   vim.api.nvim_create_user_command("Boiler", function()
     M.pick(vim.bo.filetype)
-  end, { desc = "Boiler: Select Boilerplate (FT)" })
+  end, { desc = "Boiler: Select Boilerplate by buf-filetype" })
 
   vim.api.nvim_create_user_command("BoilerAll", function()
     M.pick()
-  end, { desc = "Boiler: Select Boilerplate (All)" })
+  end, { desc = "Boiler: Select any Boilerplate" })
 end
 
 return M
