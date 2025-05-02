@@ -61,3 +61,8 @@ Run `:help boiler` for more details
 - [ ] Auto-insert if only a single item available
   - [ ] Config option to toggle this behavior
 - [ ] Graceful fallback to `vim.ui.select` if Snacks unavailable
+- [ ] More pickers?
+  - [ ] Telescope
+  - [ ] MiniPick
+  - [ ] fzf-lua
+  - [ ] PickMe (as a wrapper?)
