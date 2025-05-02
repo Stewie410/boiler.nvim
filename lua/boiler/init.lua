@@ -11,19 +11,24 @@ function M.pick(filetype)
   picker.pick(items, M.config.picker, filetype)
 end
 
+local function setup_commands()
+  vim.api.nvim_create_user_command("Boiler", function(opts)
+    local ft = opts.args or vim.bo.filetype
+    M.pick(ft)
+  end, { nargs = "?", desc = "Boiler: Select Boilerplate by filetype" })
+
+  vim.api.nvim_create_user_command("BoilerAll", function()
+    M.pick()
+  end, { desc = "Boiler: Select any Boilerplate" })
+end
+
 ---Plugin Setup
 ---@param opts? boiler.Config
 function M.setup(opts)
   require("boiler.config").setup(opts)
   M.config = require("boiler.config").config
 
-  vim.api.nvim_create_user_command("Boiler", function()
-    M.pick(vim.bo.filetype)
-  end, { desc = "Boiler: Select Boilerplate by buf-filetype" })
-
-  vim.api.nvim_create_user_command("BoilerAll", function()
-    M.pick()
-  end, { desc = "Boiler: Select any Boilerplate" })
+  setup_commands()
 end
 
 return M

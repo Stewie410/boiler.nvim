@@ -49,7 +49,8 @@ require("boiler").setup({
 
 ### Commands
 
-- `Boiler`: Find and insert boilerplate into current buffer, filtered by `vim.bo.filetype`
+- `Boiler [filetype]`: Find and insert boilerplate into current buffer
+  - If `filetype` not specified, use `vim.bo.filetype`
 - `BoilerAll`: Find and insert boilerplate into current buffer, unfiltered
 
 ### Help
@@ -60,7 +61,6 @@ Run `:help boiler` for more details
 
 - [ ] Auto-insert if only a single item available
   - [ ] Config option to toggle this behavior
-- [x] Graceful fallback to `vim.ui.select` if Snacks unavailable
 - [ ] More pickers?
   - [ ] Telescope
   - [ ] MiniPick
