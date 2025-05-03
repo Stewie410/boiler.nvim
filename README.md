@@ -17,7 +17,7 @@ Minimal boilerplate templating
 {
   "Stewie410/boiler.nvim",
   dependencies = {
-    "Grub4K/glob.nvim",
+    "Grub4K/glib.nvim",
     -- Optional picker with preview
     "folke/snacks.nvim",
   },
