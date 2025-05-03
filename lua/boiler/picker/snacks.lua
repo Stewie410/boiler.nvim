@@ -14,7 +14,6 @@ local function format_items(items)
     for _, f in ipairs(files) do
       table.insert(acc, {
         text = f:gsub(vim.env.HOME, "~"),
-        -- file = f,
         preview = {
           text = table.concat(util.read(f), "\n"),
           ft = ft,
@@ -28,16 +27,17 @@ local function format_items(items)
 end
 
 ---Pick boilerplate
----@param items table<string, string[]>
-function M.pick(items)
-  require("snacks").picker.pick({
+---@param items table<string, string[]> tempaltes to choose from
+---@param callback fun(choice: string) on_choice action
+function M.pick(items, callback)
+  snacks.picker.pick({
     source = "boiler.nvim",
     items = format_items(items),
     preview = "preview",
     format = "text",
     confirm = function(picker, item)
       picker:close()
-      util.insert(vim.split(item.preview.text, "\n"))
+      callback(vim.fs.normalize(item.text))
     end,
   })
 end

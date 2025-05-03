@@ -14,6 +14,12 @@ local function get_picker(pref)
   return picker
 end
 
+---@param choice? string selected item
+local function on_choice(choice)
+  if choice == nil then return end
+  util.insert(util.read(choice))
+end
+
 ---Filter boilerplate item table by filetype
 ---@param items table<string, string[]> boilerplate cache
 ---@param filetype string filetype name
@@ -33,7 +39,18 @@ function M.pick(items, preference, filetype)
   if filetype then
     items = M.filter_items(items, filetype)
   end
-  picker.pick(items)
+
+  local all_items = vim.iter(vim.tbl_values(items)):flatten():totable()
+  if #all_items < 2 then
+    if #all_items == 1 then
+      on_choice(all_items[1])
+    else
+      util.log("No boilerplate templates available", "warn")
+    end
+    return
+  end
+
+  picker.pick(items, on_choice)
 end
 
 return M

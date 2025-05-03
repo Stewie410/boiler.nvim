@@ -1,23 +1,18 @@
 ---@class boiler.picker.Vim
 local M = {}
 
-local util = require("boiler.util")
-
 ---Pick boilerplate
----@param items table<string, string[]>
-function M.pick(items)
-  local opts = vim.iter(pairs(items))
-      :map(function(_, t) return t end)
+---@param items table<string, string[]> templates to choose from
+---@param callback fun(choice: string) on_choice action
+function M.pick(items, callback)
+  local opts = vim.iter(vim.tbl_values(items))
       :flatten()
       :totable()
 
   vim.ui.select(opts, {
     prompt = "boiler.nvim",
     kind = "boiler.picker.Vim",
-  }, function(choice)
-    if choice == nil then return end
-    util.insert(util.read(choice))
-  end)
+  }, callback)
 end
 
 return M
