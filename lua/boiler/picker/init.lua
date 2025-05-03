@@ -40,6 +40,8 @@ function M.pick(items, preference, filetype)
     items = M.filter_items(items, filetype)
   end
 
+  vim.notify("foo", vim.log.levels.DEBUG)
+
   local all_items = vim.iter(vim.tbl_values(items)):flatten():totable()
   if #all_items < 2 then
     if #all_items == 1 then
