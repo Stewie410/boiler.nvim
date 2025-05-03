@@ -8,8 +8,9 @@ Minimal boilerplate templating
 
 - Neovim 0.10+ (`vim.iter()`)
 - [Grub4K/glib.nvim](https://github.com/Grub4K/glib.nvim)
-- Optional
+- Optional Pickers:
   - [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
+  - [echasnovski/mini.pick](https://github.com/echasnovski/mini.pick)
 
 ### 💤 lazy.nvim
 
@@ -20,6 +21,7 @@ Minimal boilerplate templating
     "Grub4K/glib.nvim",
     -- Optional picker with preview
     "folke/snacks.nvim",
+    "echasnovski/mini.pick",
   },
   opts = {},
 }
@@ -30,7 +32,7 @@ Minimal boilerplate templating
 ### Configuration
 
 ```lua
----@alias boiler.config.Picker "snacks"|"vim"|nil support picker types
+---@alias boiler.config.Picker "snacks"|"mini"|"vim" support picker types
 
 ---@class boiler.Config
 ---@field picker? boiler.config.Picker picker preference
@@ -53,14 +55,28 @@ require("boiler").setup({
   - If `filetype` not specified, use `vim.bo.filetype`
 - `BoilerAll`: Find and insert boilerplate into current buffer, unfiltered
 
+### Keymap
+
+`boiler.nvim` does not add any keymaps by default, however `boiler.pick()` can
+be called directly after setup.  For example:
+
+```lua
+vim.keymap.set("n", "<leader>bp", function()
+  require("boiler").pick(vim.bo.filetype)
+end, { desc = "Boiler: Select by Filetype" })
+
+vim.keymap.set("n", "<leader>bpa", function()
+  require("boiler").pick()
+end, { desc = "Boiler: Select Any" })
+```
+
 ### Help
 
 Run `:help boiler` for more details
 
 ### ✅ To-Do
 
-- [ ] More pickers?
-  - [ ] Telescope
-  - [ ] MiniPick
-  - [ ] fzf-lua
-  - [ ] PickMe (as a wrapper?)
+- More pickers?
+  - Telescope
+  - fzf-lua
+  - PickMe (as a wrapper?)
