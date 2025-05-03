@@ -59,8 +59,6 @@ Run `:help boiler` for more details
 
 ### ✅ To-Do
 
-- [ ] Auto-insert if only a single item available
-  - [ ] Config option to toggle this behavior
 - [ ] More pickers?
   - [ ] Telescope
   - [ ] MiniPick
