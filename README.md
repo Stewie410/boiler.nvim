@@ -6,7 +6,9 @@ Minimal boilerplate templating
 
 ### ⚠️ Requirements
 
-- Neovim 0.10+ (`vim.iter()`)
+- Neovim 0.10+
+  - `vim.iter()` support required
+  - `vim.uv` support required
 - [Grub4K/glib.nvim](https://github.com/Grub4K/glib.nvim)
 - Optional Pickers:
   - [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
