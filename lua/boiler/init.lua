@@ -4,6 +4,9 @@ local M = {}
 local util = require("boiler.util")
 local picker = require("boiler.picker")
 
+---@type boiler.Config
+M.config = M.config or {}
+
 ---Pick boilerplate template
 ---@param filetype? string filter items by filetype + generics
 function M.pick(filetype)
@@ -13,7 +16,7 @@ end
 
 local function setup_commands()
   vim.api.nvim_create_user_command("Boiler", function(opts)
-    local ft = opts.args or vim.bo.filetype
+    local ft = #opts.args > 0 and opts.args or vim.bo.filetype
     M.pick(ft)
   end, { nargs = "?", desc = "Boiler: Select Boilerplate by filetype" })
 
@@ -27,7 +30,6 @@ end
 function M.setup(opts)
   require("boiler.config").setup(opts)
   M.config = require("boiler.config").config
-
   setup_commands()
 end
 

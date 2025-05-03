@@ -19,6 +19,10 @@ M.config = M.config or default_config
 function M.setup(opts)
   assert(vim.fn.has("nvim-0.10"), "boiler.nvim: Requires nvim 0.10+")
   M.config = vim.tbl_deep_extend("force", {}, M.config, opts or {})
+  M.config.paths = vim.iter(M.config.paths)
+      :map(vim.fs.normalize)
+      :filter(vim.uv.fs_stat)
+      :totable()
 end
 
 return M

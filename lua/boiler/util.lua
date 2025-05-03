@@ -40,24 +40,21 @@ end
 
 ---Scan paths for template files
 ---@param paths string[] top-level paths to search
----@return boiler.Cache
+---@return table<string, string[]>
 function M.find_templates(paths)
   local glib = require("glib")
 
-  local iter = vim.iter(paths)
-      :map(vim.fs.normalize)
-      :filter(vim.uv.fs_stat)
-
-  return iter:fold({}, function(acc, root)
+  return vim.iter(paths):fold({}, function(acc, root)
+    acc.all = acc.all or {}
     for file in glib.glob(root .. "/*") do
       table.insert(acc.all, file)
     end
 
     for dir in glib.glob(root .. "/*/") do
-      local name = vim.fs.basename(vim.fs.normalize(dir))
-      acc[name] = acc[name] or {}
+      local ft = vim.fs.basename(vim.fs.normalize(dir))
+      acc[ft] = acc[ft] or {}
       for file in glib.glob(dir .. "/**/*") do
-        table.insert(acc[name], file)
+        table.insert(acc[ft], file)
       end
     end
 

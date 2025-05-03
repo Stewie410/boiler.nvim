@@ -4,7 +4,7 @@ local M = {}
 local util = require("boiler.util")
 
 ---Pick boilerplate
----@param items boiler.Cache
+---@param items table<string, string[]>
 function M.pick(items)
   local opts = vim.iter(pairs(items))
       :map(function(_, t) return t end)

@@ -15,7 +15,7 @@ local function get_picker(pref)
 end
 
 ---Filter boilerplate item table by filetype
----@param items boiler.Cache boilerplate cache
+---@param items table<string, string[]> boilerplate cache
 ---@param filetype string filetype name
 function M.filter_items(items, filetype)
   return {
@@ -25,9 +25,9 @@ function M.filter_items(items, filetype)
 end
 
 ---Pick boilerplate template
----@param items boiler.Cache available templates
+---@param items table<string, string[]> available templates
 ---@param preference boiler.config.Picker picker preference
----@param filetype any
+---@param filetype? string
 function M.pick(items, preference, filetype)
   local picker = get_picker(preference)
   if filetype then
