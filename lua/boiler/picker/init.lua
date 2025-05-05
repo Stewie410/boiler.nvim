@@ -16,7 +16,9 @@ end
 
 ---@param choice? string selected item
 local function on_choice(choice)
-  if choice == nil then return end
+  if choice == nil then
+    return
+  end
   util.insert(util.read(choice))
 end
 
@@ -39,8 +41,6 @@ function M.pick(items, preference, filetype)
   if filetype then
     items = M.filter_items(items, filetype)
   end
-
-  vim.notify("foo", vim.log.levels.DEBUG)
 
   local all_items = vim.iter(vim.tbl_values(items)):flatten():totable()
   if #all_items < 2 then
