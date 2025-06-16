@@ -23,7 +23,7 @@ jobs:
           dedupsubheadings: true
           treesitter: true
           demojify: true
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "docs: generate help from md"
           branch: ${{ github.head_ref }}
