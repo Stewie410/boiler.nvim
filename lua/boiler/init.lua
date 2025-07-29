@@ -8,7 +8,7 @@ M.config = M.config or {}
 ---@param filetype? string filter items by filetype + generics
 function M.pick(filetype)
   local items = require("boiler.util").find_templates(M.config.paths)
-  require("picker").pick(items, M.config.picker, filetype)
+  require("boiler.picker").pick(items, M.config.picker, filetype)
 end
 
 local function setup_commands()
