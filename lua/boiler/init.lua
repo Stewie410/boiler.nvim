@@ -1,17 +1,14 @@
 ---@class Boiler
 local M = {}
 
-local util = require("boiler.util")
-local picker = require("boiler.picker")
-
 ---@type boiler.Config
 M.config = M.config or {}
 
 ---Pick boilerplate template
 ---@param filetype? string filter items by filetype + generics
 function M.pick(filetype)
-  local items = util.find_templates(M.config.paths)
-  picker.pick(items, M.config.picker, filetype)
+  local items = require("boiler.util").find_templates(M.config.paths)
+  require("picker").pick(items, M.config.picker, filetype)
 end
 
 local function setup_commands()
