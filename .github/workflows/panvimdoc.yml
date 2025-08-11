@@ -13,7 +13,7 @@ jobs:
     name: pandoc to vimdoc
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: kdheepak/panvimdoc@v4.0.1
         with:
           vimdoc: boiler
