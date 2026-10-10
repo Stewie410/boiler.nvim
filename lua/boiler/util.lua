@@ -29,10 +29,10 @@ end
 
 ---Push notification
 ---@param message string
----@param level? "debug"|"error"|"info"|"trace"|"warn"|nil
+---@param level? vim.log.levels|nil
 function M.log(message, level)
-  level = (level or "info"):gsub("%l", string.upper)
-  vim.notify(message, vim.log.levels[level], {
+  level = level == nil and vim.log.levels.INFO or level
+  vim.notify(message, level, {
     title = "boiler.nvim",
     timeout = 3000,
   })

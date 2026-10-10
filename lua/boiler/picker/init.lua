@@ -8,7 +8,7 @@ local function get_picker(pref)
   local name = tostring(pref)
   local ok, picker = pcall(require, "boiler.picker." .. name)
   if not ok then
-    util.log(name:gsub("^%l", string.upper) .. " not available, fallback to builtin", "warn")
+    util.log(name:gsub("^%l", string.upper) .. " not available, fallback to builtin", vim.log.levels.WARN)
     picker = require("boiler.picker.vim")
   end
   return picker
@@ -47,7 +47,7 @@ function M.pick(items, preference, filetype)
     if #all_items == 1 then
       on_choice(all_items[1])
     else
-      util.log("No boilerplate templates available", "warn")
+      util.log("No boilerplate templates available", vim.log.levels.WARN)
     end
     return
   end
