@@ -1,4 +1,4 @@
-*boiler.txt*             For NVIM v0.10.0             Last change: 2025 May 03
+*boiler.txt*           For NVIM v0.10.0           Last change: 2026 October 10
 
 ==============================================================================
 Table of Contents                                   *boiler-table-of-contents*
@@ -24,7 +24,7 @@ REQUIREMENTS ~
 - Grub4K/glib.nvim <https://github.com/Grub4K/glib.nvim>
 - Optional Pickers:
     - folke/snacks.nvim <https://github.com/folke/snacks.nvim>
-    - echasnovski/mini.pick <https://github.com/echasnovski/mini.pick>
+    - nvim-mini/mini.pick <https://github.com/nvim-mini/mini.pick>
 
 
 LAZY.NVIM ~
@@ -34,12 +34,27 @@ LAZY.NVIM ~
       "Stewie410/boiler.nvim",
       dependencies = {
         "Grub4K/glib.nvim",
-        -- Optional picker with preview
-        "folke/snacks.nvim",
-        "echasnovski/mini.pick",
+        -- Optional picker(s) with preview
+        -- "folke/snacks.nvim",
+        -- "nvim-mini/mini.pick",
       },
       opts = {},
     }
+<
+
+
+VIM.PACK ~
+
+>lua
+    vim.pack.add({
+      "https://github.com/Stewie410/boiler.nvim",
+      "https://github.com/Grub4K/glib.nvim",
+      -- optional picker(s) with preview
+      -- "https://github.com/folke/snacks.nvim",
+      -- "https://github.com/nvim-mini/mini.pick",
+    })
+    
+    require("boiler").setup()
 <
 
 
