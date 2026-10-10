@@ -12,7 +12,7 @@ Minimal boilerplate templating
 - [Grub4K/glib.nvim](https://github.com/Grub4K/glib.nvim)
 - Optional Pickers:
   - [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
-  - [echasnovski/mini.pick](https://github.com/echasnovski/mini.pick)
+  - [nvim-mini/mini.pick](https://github.com/nvim-mini/mini.pick)
 
 ### 💤 lazy.nvim
 
@@ -23,7 +23,7 @@ Minimal boilerplate templating
     "Grub4K/glib.nvim",
     -- Optional picker(s) with preview
     -- "folke/snacks.nvim",
-    -- "echasnovski/mini.pick",
+    -- "nvim-mini/mini.pick",
   },
   opts = {},
 }
@@ -37,7 +37,7 @@ vim.pack.add({
   "https://github.com/Grub4K/glib.nvim",
   -- optional picker(s) with preview
   -- "https://github.com/folke/snacks.nvim",
-  -- "https://github.com/echasnovski/mini.pick",
+  -- "https://github.com/nvim-mini/mini.pick",
 })
 
 require("boiler").setup()
