@@ -21,12 +21,26 @@ Minimal boilerplate templating
   "Stewie410/boiler.nvim",
   dependencies = {
     "Grub4K/glib.nvim",
-    -- Optional picker with preview
-    "folke/snacks.nvim",
-    "echasnovski/mini.pick",
+    -- Optional picker(s) with preview
+    -- "folke/snacks.nvim",
+    -- "echasnovski/mini.pick",
   },
   opts = {},
 }
+```
+
+### 📦 vim.pack
+
+```lua
+vim.pack.add({
+  "https://github.com/Stewie410/boiler.nvim",
+  "https://github.com/Grub4K/glib.nvim",
+  -- optional picker(s) with preview
+  -- "https://github.com/folke/snacks.nvim",
+  -- "https://github.com/echasnovski/mini.pick",
+})
+
+require("boiler").setup()
 ```
 
 ## 🚀 Usage
