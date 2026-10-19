@@ -1,21 +1,17 @@
----@class boiler.picker.Mini
+---@class boiler.Picker
 local M = {}
 
-local mini = require("mini.pick")
+function M.check()
+  local ok, _ = pcall(require, "mini.pick")
+  return ok
+end
 
----Pick boilerplate
----@param items table<string, string[]> available boilerplate templates
----@param callback fun(choice: string) on_choice action
-function M.pick(items, callback)
-  local opts = vim.iter(vim.tbl_values(items))
-      :flatten()
-      :totable()
-
-  mini.start({
+function M.pick(items)
+  require("mini.pick").start({
     source = {
-      items = opts,
+      items = items,
       name = "boiler.nvim",
-      choose = vim.schedule_wrap(callback),
+      choose = vim.schedule_wrap(require("boiler.util").on_choice),
     },
   })
 end

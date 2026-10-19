@@ -1,13 +1,5 @@
 local M = {}
 
----Get path to stack item, relative to cwd
----@param stack? integer stack item (default: 2)
----@return string|nil
-function M.script_path(stack)
-  local ok, t = pcall(debug.getinfo, stack or 2, "S")
-  return ok and t.source:sub(2) or nil
-end
-
 ---Insert template content, replacing all lines
 ---@param lines string[] file content to insert
 function M.insert(lines)
@@ -27,35 +19,31 @@ function M.read(path)
   return vim.iter(f):totable()
 end
 
----Push notification
----@param message string
----@param level? vim.log.levels|nil
-function M.log(message, level)
-  level = level == nil and vim.log.levels.INFO or level
-  vim.notify(message, level, {
-    title = "boiler.nvim",
-    timeout = 3000,
-  })
-end
-
----Scan globs for template files
+---Scan globs for templates matching filetype
 ---@param globs string[] globs to expand & search
----@return table<string, string[]>
-function M.glob_templates(globs)
+---@param ft? string filetype string, nil to return all templates
+---@return string[]
+function M.find(globs, ft)
   return vim.iter(globs):fold({}, function(acc, glob)
-    acc.all = acc.all or {}
-
     for _, path in ipairs(vim.fn.glob(glob, false, true)) do
       if vim.fn.isdirectory(path) == 0 then
-        local ft = vim.fs.basename(vim.fs.dirname(path))
-        acc[ft] = acc[ft] or {}
-        table.insert(acc[ft], path)
-        table.insert(acc.all, path)
+        local pft = vim.fs.basename(vim.fs.dirname(path))
+        if ft == nil or pft == ft then
+          table.insert(acc, path)
+        end
       end
     end
-
     return acc
   end)
+end
+
+---Insert choice (template) into current buffer
+---@param choice? string selected item
+function M.on_choice(choice)
+  if choice ~= nil then
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, M.read(choice))
+  end
 end
 
 return M

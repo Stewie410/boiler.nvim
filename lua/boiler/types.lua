@@ -1,5 +1,3 @@
----@alias boiler.config.Picker "snacks"|"mini"|"vim" support picker types
-
----@class boiler.Config
----@field picker? boiler.config.Picker picker preference
----@field globs? string[] globs to expand & search for templates
+---@class boiler.Picker
+---@field check fun(): boolean valide picker is available
+---@field pick fun(items: string[]) select a template to insert
