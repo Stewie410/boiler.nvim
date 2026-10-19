@@ -9,67 +9,22 @@ Minimal boilerplate templating
 - Neovim 0.10+
   - `vim.iter()` support required
   - `vim.uv` support required
-- [Grub4K/glib.nvim](https://github.com/Grub4K/glib.nvim)
 - Optional Pickers:
   - [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
   - [nvim-mini/mini.pick](https://github.com/nvim-mini/mini.pick)
-
-### 💤 lazy.nvim
-
-```lua
-{
-  "Stewie410/boiler.nvim",
-  dependencies = {
-    "Grub4K/glib.nvim",
-    -- Optional picker(s) with preview
-    -- "folke/snacks.nvim",
-    -- "nvim-mini/mini.pick",
-  },
-  opts = {},
-}
-```
 
 ### 📦 vim.pack
 
 ```lua
 vim.pack.add({
   "https://github.com/Stewie410/boiler.nvim",
-  "https://github.com/Grub4K/glib.nvim",
   -- optional picker(s) with preview
   -- "https://github.com/folke/snacks.nvim",
   -- "https://github.com/nvim-mini/mini.pick",
 })
-
-require("boiler").setup()
 ```
 
 ## 🚀 Usage
-
-### Configuration
-
-```lua
----@alias boiler.config.Picker "snacks"|"mini"|"vim" support picker types
-
----@class boiler.Config
----@field picker? boiler.config.Picker picker preference
----@field paths? string[] paths to search for boilerplate templates
-```
-
-```lua
-require("boiler").setup({
-  picker = "vim", -- use vim.ui.select for picker
-  paths = {
-    vim.fn.stdpath("config") .. "/boilerplate", -- ~/.config/nvim/boilerplate
-    vim.fn.stdpath("data") .. "/boilerplate", -- ~/.local/share/nvim/boilerplate
-  },
-})
-```
-
-### Commands
-
-- `Boiler [filetype]`: Find and insert boilerplate into current buffer
-  - If `filetype` not specified, use `vim.bo.filetype`
-- `BoilerAll`: Find and insert boilerplate into current buffer, unfiltered
 
 ### Keymap
 
@@ -77,13 +32,19 @@ require("boiler").setup({
 be called directly after setup.  For example:
 
 ```lua
-vim.keymap.set("n", "<leader>bp", function()
-  require("boiler").pick(vim.bo.filetype)
-end, { desc = "Boiler: Select by Filetype" })
+vim.keymap.set("n", "<leader>bb", function()
+    require("boiler.picker.vim").pick(require("boiler.util").find({
+        vim.fn.stdpath("config") .. "/boilerplate/**/*",
+        vim.fn.stdpath("data") .. "/boilerplate/**/*",
+    }, vim.bo.filetype))
+end, { desc = "boiler.nvim: pick by ft" })
 
-vim.keymap.set("n", "<leader>bpa", function()
-  require("boiler").pick()
-end, { desc = "Boiler: Select Any" })
+vim.keymap.set("n", "<leader>ba", function()
+    require("boiler.picker.vim").pick(require("boiler.util").find({
+        vim.fn.stdpath("config") .. "/boilerplate/**/*",
+        vim.fn.stdpath("data") .. "/boilerplate/**/*",
+    }, nil))
+end, { desc = "boiler.nvim: pick by any" })
 ```
 
 ### Help
