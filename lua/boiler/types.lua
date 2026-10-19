@@ -2,4 +2,4 @@
 
 ---@class boiler.Config
 ---@field picker? boiler.config.Picker picker preference
----@field paths? string[] paths to search for boilerplate templates
+---@field globs? string[] globs to expand & search for templates

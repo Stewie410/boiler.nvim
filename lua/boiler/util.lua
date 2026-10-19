@@ -38,23 +38,19 @@ function M.log(message, level)
   })
 end
 
----Scan paths for template files
----@param paths string[] top-level paths to search
+---Scan globs for template files
+---@param globs string[] globs to expand & search
 ---@return table<string, string[]>
-function M.find_templates(paths)
-  local glib = require("glib")
-
-  return vim.iter(paths):fold({}, function(acc, root)
+function M.glob_templates(globs)
+  return vim.iter(globs):fold({}, function(acc, glob)
     acc.all = acc.all or {}
-    for file in glib.glob(root .. "/*") do
-      table.insert(acc.all, file)
-    end
 
-    for dir in glib.glob(root .. "/*/") do
-      local ft = vim.fs.basename(vim.fs.normalize(dir))
-      acc[ft] = acc[ft] or {}
-      for file in glib.glob(dir .. "/**/*") do
-        table.insert(acc[ft], file)
+    for _, path in ipairs(vim.fn.glob(glob, false, true)) do
+      if vim.fn.isdirectory(path) == 0 then
+        local ft = vim.fs.basename(vim.fs.dirname(path))
+        acc[ft] = acc[ft] or {}
+        table.insert(acc[ft], path)
+        table.insert(acc.all, path)
       end
     end
 
